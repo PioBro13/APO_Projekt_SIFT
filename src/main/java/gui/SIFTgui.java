@@ -27,6 +27,7 @@ public class SIFTgui {
     private Mat matImgProbability = new Mat();
     private int kernelSize = 0;
     private int smoothingType;
+    private JScrollPane scroll;
     private JFrame frame;
     private JLabel imgLabel;
     private JLabel imgLabelProbability = new JLabel();
@@ -64,15 +65,28 @@ public class SIFTgui {
         generateProbabilityButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                update();
-                imgLabelProbabilityText.setVisible(true);
-                thresholdProbabilityButton.setVisible(true);
+                try {
+                    update();
+                    imgLabelProbabilityText.setVisible(true);
+                    thresholdProbabilityButton.setVisible(true);
+                }catch (Exception error){
+                    JOptionPane.showMessageDialog(null,
+                            "Chosen images have too few common features. You can't generate probability image", "Wrong images",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+
             }
         });
         imgLabelProbabilityText.setVisible(false);
         sliderPanel.add(imgLabelProbabilityText);
         sliderPanel.add(imgLabelProbability);
         thresholdProbabilityButton.setVisible(false);
+        thresholdProbabilityButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new Threshold(matImgProbability);
+            }
+        });
         sliderPanel.add(thresholdProbabilityButton);
     }
     private void update() {

@@ -29,39 +29,6 @@ public class FeatureExtractionImage {
         detector.detect(image, keypoints);
         keypoints.toArray();
         KeyPoint[] m = keypoints.toArray();
-        try {
-            PrintWriter writer = new PrintWriter("the-file-name.txt", "UTF-8");
-            writer.print("i.octave");
-            writer.print(";");
-            writer.print("layer");
-            writer.print(";");
-            writer.print("octave_extracted");
-            writer.print(";");
-            writer.print("scale");
-            writer.print(";");
-            writer.print("size");
-            for (KeyPoint i : m) {
-                int octave;
-                int layer;
-                float scale;
-                octave = i.octave & 255;
-                layer = (i.octave >> 8) & 255;
-                octave = octave < 128 ? octave : (-128 | octave);
-                scale = octave >= 0 ? 1.f / (1 << octave) : (float) (1 << -octave);
-                writer.print(i.octave);
-                writer.print(";");
-                writer.print(layer);
-                writer.print(";");
-                writer.print(octave);
-                writer.print(";");
-                writer.print(scale);
-                writer.print(";");
-                writer.print(i.size);
-            }
-            writer.close();
-        } catch (Exception e) {
-
-        }
         Features2d.drawKeypoints(image, keypoints, imageKeypoint);
     }
 
