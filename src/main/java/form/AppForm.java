@@ -2,6 +2,8 @@ package form;
 
 
 
+import gui.SIFTgui;
+import utils.FeatureMatching;
 import utils.FileService;
 
 import javax.swing.*;
@@ -51,7 +53,11 @@ public class AppForm extends JFrame{
         SIFTImageButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                try {
+                    new SIFTgui(openFile(),openFile());
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
             }
         });
     }
@@ -67,48 +73,6 @@ public class AppForm extends JFrame{
             System.out.println("File not found");
             return null;
         }
-    }
-
-    public int arithmeticValue(){
-        int givenLevel = -1;
-        try {
-             givenLevel = Integer.parseInt(JOptionPane.showInputDialog("Enter integer value"));
-        } catch (NumberFormatException e){
-            JOptionPane.showMessageDialog(null, "Incorrect data type!\nPlease enter integer number.",
-                    "Wrong value", JOptionPane.ERROR_MESSAGE);
-        }
-        return givenLevel;
-    }
-
-    public String operationType(){
-        JPanel panel = new JPanel();
-        panel.add(new JLabel("Please make a selection:"));
-        DefaultComboBoxModel model = new DefaultComboBoxModel();
-        model.addElement("Addition");
-        model.addElement("Division");
-        model.addElement("Multiplication");
-        JComboBox comboBox = new JComboBox(model);
-        panel.add(comboBox);
-
-        int result = JOptionPane.showConfirmDialog(null, panel, "Flavor", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-        System.out.println(result);
-        return comboBox.getSelectedItem().toString();
-    }
-
-    public String logicOperationType(){
-        JPanel panel = new JPanel();
-        panel.add(new JLabel("Please make a selection:"));
-        DefaultComboBoxModel model = new DefaultComboBoxModel();
-        model.addElement("NOT");
-        model.addElement("AND");
-        model.addElement("OR");
-        model.addElement("XOR");
-        JComboBox comboBox = new JComboBox(model);
-        panel.add(comboBox);
-
-        int result = JOptionPane.showConfirmDialog(null, panel, "Flavor", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-        System.out.println(result);
-        return comboBox.getSelectedItem().toString();
     }
 
 }

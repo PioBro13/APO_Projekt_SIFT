@@ -7,16 +7,17 @@ import org.opencv.highgui.HighGui;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.features2d.SIFT;
 
+import java.io.File;
+import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class FeatureMatching {
-    public void run(String[] args) {
-        System.load(Paths.get(".").toAbsolutePath().normalize().toString() +"\\opencv\\build\\java\\x64\\opencv_java460.dll");
-        String filename1 = args.length > 1 ? args[0] : "../data/box.png";
-        String filename2 = args.length > 1 ? args[1] : "../data/box_in_scene.png";
+    public static Mat match(File firstFile, File secondFile) throws IOException {
+        String filename1 = firstFile.getAbsolutePath();
+        String filename2 = secondFile.getAbsolutePath();
         Mat img1 = Imgcodecs.imread(filename1, Imgcodecs.IMREAD_GRAYSCALE);
         Mat img2 = Imgcodecs.imread(filename2, Imgcodecs.IMREAD_GRAYSCALE);
         if (img1.empty() || img2.empty()) {
@@ -24,9 +25,6 @@ public class FeatureMatching {
             System.exit(0);
         }
         //-- Step 1: Detect the keypoints using SURF Detector, compute the descriptors
-        double hessianThreshold = 400;
-        int nOctaves = 4, nOctaveLayers = 3;
-        boolean extended = false, upright = false;
         SIFT detector = SIFT.create();
         MatOfKeyPoint keypoints1 = new MatOfKeyPoint(), keypoints2 = new MatOfKeyPoint();
         Mat descriptors1 = new Mat(), descriptors2 = new Mat();
@@ -55,8 +53,7 @@ public class FeatureMatching {
         Features2d.drawMatches(img1, keypoints1, img2, keypoints2, goodMatches, imgMatches, Scalar.all(-1),
                 Scalar.all(-1), new MatOfByte(), Features2d.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS);
         //-- Show detected matches
-        HighGui.imshow("Good Matches", imgMatches);
-        HighGui.waitKey(0);
-        System.exit(0);
+        return  imgMatches;
+
     }
 }
