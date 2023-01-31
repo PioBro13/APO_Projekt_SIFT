@@ -17,22 +17,17 @@ import java.io.File;
 import java.io.IOException;
 
 public class SIFTgui {
-    private static final String[] ELEMENT_TYPE = { "Blur", "Gaussian" };
-    private static final String[] BORDERS = { "Constant", "Reflect", "Wrap"};
-    private int borderType;
 
     private Mat matImgFirst;
     private Mat matImgSecond;
     private Mat matFeaturesMached;
     private Mat matImgProbability = new Mat();
-    private int kernelSize = 0;
-    private int smoothingType;
-    private JScrollPane scroll;
     private JFrame frame;
     private JLabel imgLabel;
     private JLabel imgLabelProbability = new JLabel();
     private JButton thresholdProbabilityButton = new JButton("Threshold probability image");
     private JLabel imgLabelProbabilityText = new JLabel("Probability image:");
+
     public SIFTgui(File firstImage,File secondImage) throws IOException {
         matImgFirst = FileService.BufferedImage2Mat(FileService.imageToBuffered(firstImage));
         matImgSecond = FileService.BufferedImage2Mat(FileService.imageToBuffered(secondImage));
@@ -89,6 +84,7 @@ public class SIFTgui {
         });
         sliderPanel.add(thresholdProbabilityButton);
     }
+
     private void update() {
         FeatureExtractionImage imageFirst = new FeatureExtractionImage(matImgFirst);
         FeatureExtractionImage imageSecond = new FeatureExtractionImage(matImgSecond);
@@ -96,7 +92,7 @@ public class SIFTgui {
         FeatureDescriptionImage desc = new FeatureDescriptionImage(imageFirst,imageSecond);
 
         ProbabilityImage probabilityImage = new ProbabilityImage(imageFirst,imageSecond,desc);
-        matImgProbability = probabilityImage.getMatPanoramaImage();
+        matImgProbability = probabilityImage.getMatProbabilityImage();
         Image img = HighGui.toBufferedImage(matImgProbability);
         imgLabelProbability.setIcon(new ImageIcon(img));
         frame.repaint();

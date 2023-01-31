@@ -14,21 +14,27 @@ import java.awt.event.ActionListener;
 import java.io.File;
 
 public class Threshold {
+    //Threshold boundary values
     private static int MAX_VALUE = 255;
     private static int MAX_TYPE = 5;
     private static int MAX_BINARY_VALUE = 255;
+    //GUI Window
     private static final String WINDOW_NAME = "Threshold Demo";
+    //Threshold types
     private static final String TRACKBAR_TYPE = "<html><body>Type: <br> 0: Binary <br> "
             + "1: Binary Inverted <br> 2: Truncate <br> "
             + "3: To Zero <br> 4: To Zero Inverted <br> 5: Otsu</body></html>";
     private static final String TRACKBAR_VALUE = "Value";
     private int thresholdValue = 0;
     private int thresholdType = 3;
+    //Given image
     private Mat src;
     private Mat srcGray = new Mat();
+    //Image after threshold
     private Mat dst = new Mat();
     private JFrame frame;
     private JLabel imgLabel;
+    //Flag for adaptive threshold
     private boolean isAdaptive = false;
 
 

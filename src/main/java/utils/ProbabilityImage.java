@@ -34,7 +34,7 @@ public class ProbabilityImage {
         imgResult = new Mat();
 
         getKeypointsFromGoodMatch();
-        computePanoramaImage();
+        computeProbabilityImage();
     }
 
     private void getKeypointsFromGoodMatch() {
@@ -50,7 +50,7 @@ public class ProbabilityImage {
         ptMat2.fromList(ptList2);
     }
 
-    private void computePanoramaImage() {
+    private void computeProbabilityImage() {
         // Find the Homography Matrix
         Mat H = Calib3d.findHomography(ptMat2, ptMat1, Calib3d.RANSAC, 1);
 
@@ -61,7 +61,7 @@ public class ProbabilityImage {
 
     }
 
-    public Mat getMatPanoramaImage() {
+    public Mat getMatProbabilityImage() {
         return imgResult;
     }
 

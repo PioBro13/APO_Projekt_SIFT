@@ -18,20 +18,20 @@ public class FeatureMatching {
     public static Mat match(File firstFile, File secondFile) throws IOException {
         String filename1 = firstFile.getAbsolutePath();
         String filename2 = secondFile.getAbsolutePath();
+        //Read given file
         Mat img1 = Imgcodecs.imread(filename1, Imgcodecs.IMREAD_GRAYSCALE);
         Mat img2 = Imgcodecs.imread(filename2, Imgcodecs.IMREAD_GRAYSCALE);
         if (img1.empty() || img2.empty()) {
             System.err.println("Cannot read images!");
             System.exit(0);
         }
-        //-- Step 1: Detect the keypoints using SURF Detector, compute the descriptors
+        //-- Step 1: Detect the keypoints using SIFT Detector, compute the descriptors
         SIFT detector = SIFT.create();
         MatOfKeyPoint keypoints1 = new MatOfKeyPoint(), keypoints2 = new MatOfKeyPoint();
         Mat descriptors1 = new Mat(), descriptors2 = new Mat();
         detector.detectAndCompute(img1, new Mat(), keypoints1, descriptors1);
         detector.detectAndCompute(img2, new Mat(), keypoints2, descriptors2);
         //-- Step 2: Matching descriptor vectors with a FLANN based matcher
-        // Since SURF is a floating-point descriptor NORM_L2 is used
         DescriptorMatcher matcher = DescriptorMatcher.create(DescriptorMatcher.FLANNBASED);
         List<MatOfDMatch> knnMatches = new ArrayList<>();
         matcher.knnMatch(descriptors1, descriptors2, knnMatches, 2);

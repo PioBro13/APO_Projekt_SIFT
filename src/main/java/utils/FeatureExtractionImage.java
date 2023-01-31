@@ -11,10 +11,11 @@ import org.opencv.core.MatOfKeyPoint;
 import org.opencv.features2d.Features2d;
 import org.opencv.features2d.SIFT;
 public class FeatureExtractionImage {
-
+    //Mat of given image
     private Mat image;
+    //Mat of image's key points
     private Mat imageKeypoint;
-
+    //Object of key points
     private MatOfKeyPoint keypoints;
 
     public FeatureExtractionImage(Mat image) {

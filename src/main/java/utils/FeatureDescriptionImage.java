@@ -12,10 +12,13 @@ import org.opencv.features2d.Features2d;
 import org.opencv.features2d.SIFT;
 
 public class FeatureDescriptionImage {
-
+    //Provided images
     FeatureExtractionImage img1, img2;
+    //Mat of matched images
     Mat imgMatches;
+    //Mat for decriptors of provided images
     Mat descriptors1, descriptors2;
+    //Mat of matches between two images
     MatOfDMatch goodMatches;
 
     public FeatureDescriptionImage(FeatureExtractionImage img1, FeatureExtractionImage img2) {
@@ -92,7 +95,6 @@ public class FeatureDescriptionImage {
             }
         }
         goodMatchesRANSAC.fromList(goodMatchesListRANSAC);
-        ////////////////////
 
         MatOfByte matchesMask = new MatOfByte();
         Features2d.drawMatches(img1.getMatImage(), img1.getKeyPoints(), img2.getMatImage(), img2.getKeyPoints(),
