@@ -18,9 +18,6 @@ public class AppForm extends JFrame{
     private JPanel mainPanel;
     private JButton openFileButton;
     private JButton SIFTImageButton;
-    private JButton duplicateButton;
-    private JButton saveFileButton;
-    private JButton thresholdingButton;
 
     private BufferedImage lastOpenedFile;
 
